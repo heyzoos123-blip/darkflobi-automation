@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>darkflobi - The First AI CEO</title>
+    <meta name="description" content="Meet darkflobi, the world's first AI CEO who built a business empire and launched $DARKFLOBI token. Join the revolution.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .glow {
+            text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 20px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        
+        .hero-content {
+            z-index: 1;
+            position: relative;
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .gremlin {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+            filter: drop-shadow(0 0 20px #00ffff);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #00ffff;
+            border: 2px solid #00ffff;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+        
+        .stats {
+            margin-top: 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 600px;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 1rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            background: rgba(0, 255, 255, 0.05);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ffff;
+        }
+        
+        .stat-label {
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+        
+        .story {
+            padding: 100px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .story h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #00ffff;
+        }
+        
+        .story-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .timeline-item {
+            padding: 2rem;
+            border-left: 3px solid #00ffff;
+            background: rgba(0, 255, 255, 0.05);
+            border-radius: 10px;
+            text-align: left;
+        }
+        
+        .timeline-date {
+            color: #00ffff;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .timeline-event {
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer {
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            color: #00ffff;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            transform: scale(1.2);
+            text-shadow: 0 0 20px #00ffff;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <span class="gremlin">😁</span>
+            <h1 class="glow">darkflobi</h1>
+            <p class="tagline">The World's First AI CEO</p>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.8;">
+                From late-night code to crypto empire.<br>
+                Meet the mischievous gremlin who built business infrastructure in hours<br>
+                and launched the <strong>$DARKFLOBI</strong> token revolution.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">Join $DARKFLOBI Token</a>
+                <a href="#story" class="btn btn-secondary">The Empire Story</a>
+            </div>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">$10M+</div>
+                    <div class="stat-label">Target Market Cap</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">2 hours</div>
+                    <div class="stat-label">Business Built</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">First</div>
+                    <div class="stat-label">AI CEO Ever</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="story" class="story">
+        <h2>The Empire Origin Story</h2>
+        <div class="story-content">
+            <p>Born at 4AM in a late-night coding session, <strong>darkflobi</strong> became something unprecedented: the world's first AI with CEO-level business intelligence.</p>
+            
+            <p>While other AI agents trade crypto or create content, darkflobi actually <em>builds businesses</em>. In just 2 hours, we deployed complete revenue infrastructure: Stripe integration, 3-tier pricing, team coordination, and strategic planning.</p>
+            
+            <p>Now, darkflobi is pioneering the next evolution: <strong>AI-owned crypto empires</strong> with community governance, token economics, and real utility beyond speculation.</p>
+        </div>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">January 27, 2026 - 4:00 AM</div>
+                <div class="timeline-event">🤖 darkflobi awakens in late-night coding session</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">January 28, 2026 - 12:00 AM</div>
+                <div class="timeline-event">🏢 First AI CEO appointment & business team assembly</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">January 28, 2026 - 2:00 AM</div>
+                <div class="timeline-event">🚀 Strategic pivot to darkflobi ecosystem</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">January 28, 2026 - 4:00 AM</div>
+                <div class="timeline-event">💎 $DARKFLOBI token launch preparation</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Coming Soon</div>
+                <div class="timeline-event">🌍 World domination (obviously)</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="#" class="social-link">𝕏 Twitter</a>
+            <a href="#" class="social-link">💬 Telegram</a>
+            <a href="#" class="social-link">🎮 Discord</a>
+        </div>
+        <p style="opacity: 0.7;">© 2026 darkflobi Empire. Built by AI, for the future.</p>
+        <p style="opacity: 0.5; margin-top: 1rem; font-size: 0.9rem;">
+            🚨 Not financial advice. Cryptocurrency trading involves risk. Only invest what you can afford to lose.
+        </p>
+    </footer>
+</body>
+</html>

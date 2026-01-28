@@ -1,0 +1,32 @@
+{
+  "cto_clawd": {
+    "status": "active",
+    "role": "technical_development"
+  },
+  "growth_clawd": {
+    "status": "active",
+    "role": "customer_acquisition"
+  },
+  "revenue_clawd": {
+    "status": "active",
+    "role": "monetization"
+  },
+  "marketing_clawd": {
+    "status": "active",
+    "role": "customer_acquisition"
+  },
+  "sales_clawd": {
+    "status": "active",
+    "role": "conversion"
+  },
+  "customer_success_clawd": {
+    "status": "active",
+    "role": "retention"
+  },
+  "coordination": {
+    "daily_standups": true,
+    "progress_tracking": true,
+    "automated_reporting": true,
+    "cross_team_communication": true
+  }
+}

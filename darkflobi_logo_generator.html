@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DARKFLOBI Logo Generator</title>
+    <style>
+        body {
+            background: #1a1a1a;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .canvas-container {
+            margin: 20px;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #333;
+            background: white;
+            margin: 10px;
+        }
+        button {
+            background: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>DARKFLOBI Logo Generator</h1>
+    
+    <div class="canvas-container">
+        <h3>Variation 1: Crown Gremlin</h3>
+        <canvas id="canvas1" width="512" height="512"></canvas>
+        <br>
+        <button onclick="downloadCanvas('canvas1', 'darkflobi_crown.png')">Download Crown Version</button>
+    </div>
+    
+    <div class="canvas-container">
+        <h3>Variation 2: Business Suit Gremlin</h3>
+        <canvas id="canvas2" width="512" height="512"></canvas>
+        <br>
+        <button onclick="downloadCanvas('canvas2', 'darkflobi_suit.png')">Download Suit Version</button>
+    </div>
+    
+    <div class="canvas-container">
+        <h3>Variation 3: CEO Emperor Gremlin</h3>
+        <canvas id="canvas3" width="512" height="512"></canvas>
+        <br>
+        <button onclick="downloadCanvas('canvas3', 'darkflobi_emperor.png')">Download Emperor Version</button>
+    </div>
+
+    <script>
+        // Utility functions
+        function drawCircle(ctx, x, y, radius, fillStyle, strokeStyle = null, lineWidth = 2) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = fillStyle;
+            ctx.fill();
+            if (strokeStyle) {
+                ctx.strokeStyle = strokeStyle;
+                ctx.lineWidth = lineWidth;
+                ctx.stroke();
+            }
+        }
+
+        function drawEllipse(ctx, x, y, radiusX, radiusY, fillStyle, strokeStyle = null, lineWidth = 2) {
+            ctx.beginPath();
+            ctx.ellipse(x, y, radiusX, radiusY, 0, 0, 2 * Math.PI);
+            ctx.fillStyle = fillStyle;
+            ctx.fill();
+            if (strokeStyle) {
+                ctx.strokeStyle = strokeStyle;
+                ctx.lineWidth = lineWidth;
+                ctx.stroke();
+            }
+        }
+
+        function drawGremlinBase(ctx) {
+            // Background circle - dark but professional
+            const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 256);
+            gradient.addColorStop(0, '#2a1a4a');
+            gradient.addColorStop(0.7, '#1a0d2e');
+            gradient.addColorStop(1, '#0d0617');
+            drawCircle(ctx, 256, 256, 256, gradient, '#4a2c6b', 4);
+
+            // Gremlin head (main body)
+            drawEllipse(ctx, 256, 280, 80, 90, '#2d4a2d', '#1a2e1a', 3);
+            
+            // Gremlin ears
+            drawEllipse(ctx, 200, 220, 25, 35, '#2d4a2d', '#1a2e1a', 2);
+            drawEllipse(ctx, 312, 220, 25, 35, '#2d4a2d', '#1a2e1a', 2);
+            
+            // Inner ears
+            drawEllipse(ctx, 200, 225, 12, 18, '#1a2e1a');
+            drawEllipse(ctx, 312, 225, 12, 18, '#1a2e1a');
+
+            // Eyes (large and mischievous)
+            drawCircle(ctx, 230, 260, 18, '#ffffff', '#000', 2);
+            drawCircle(ctx, 282, 260, 18, '#ffffff', '#000', 2);
+            
+            // Pupils with gleam
+            drawCircle(ctx, 232, 262, 12, '#000');
+            drawCircle(ctx, 284, 262, 12, '#000');
+            drawCircle(ctx, 228, 258, 4, '#ffffff');
+            drawCircle(ctx, 280, 258, 4, '#ffffff');
+
+            // Nose
+            drawEllipse(ctx, 256, 285, 8, 12, '#1a2e1a');
+
+            // The signature grin 😁
+            ctx.beginPath();
+            ctx.arc(256, 295, 35, 0.2 * Math.PI, 0.8 * Math.PI);
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            
+            // Teeth for the grin
+            ctx.fillStyle = '#ffffff';
+            for (let i = 0; i < 6; i++) {
+                const x = 235 + i * 8;
+                const y = 315;
+                ctx.fillRect(x, y, 4, 8);
+            }
+
+            // Gremlin arms/shoulders
+            drawEllipse(ctx, 190, 340, 25, 45, '#2d4a2d', '#1a2e1a', 2);
+            drawEllipse(ctx, 322, 340, 25, 45, '#2d4a2d', '#1a2e1a', 2);
+
+            return ctx;
+        }
+
+        function drawCrown(ctx) {
+            // Small regal crown
+            const crownBase = 200;
+            const crownTop = 170;
+            const crownWidth = 112;
+            
+            // Crown base
+            ctx.fillStyle = '#ffd700';
+            ctx.fillRect(crownBase, crownTop + 30, crownWidth, 15);
+            
+            // Crown points
+            ctx.beginPath();
+            ctx.moveTo(crownBase, crownTop + 30);
+            ctx.lineTo(crownBase + 20, crownTop);
+            ctx.lineTo(crownBase + 36, crownTop + 25);
+            ctx.lineTo(crownBase + 56, crownTop - 5);
+            ctx.lineTo(crownBase + 76, crownTop + 25);
+            ctx.lineTo(crownBase + 96, crownTop);
+            ctx.lineTo(crownBase + 112, crownTop + 30);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Crown jewels
+            drawCircle(ctx, crownBase + 56, crownTop + 5, 8, '#ff4444');
+            drawCircle(ctx, crownBase + 28, crownTop + 15, 4, '#44ff44');
+            drawCircle(ctx, crownBase + 84, crownTop + 15, 4, '#4444ff');
+            
+            // Crown outline
+            ctx.strokeStyle = '#b8860b';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        function drawBusinessSuit(ctx) {
+            // Suit collar
+            ctx.beginPath();
+            ctx.moveTo(220, 350);
+            ctx.lineTo(240, 330);
+            ctx.lineTo(256, 340);
+            ctx.lineTo(272, 330);
+            ctx.lineTo(292, 350);
+            ctx.lineTo(280, 380);
+            ctx.lineTo(232, 380);
+            ctx.closePath();
+            ctx.fillStyle = '#1a1a1a';
+            ctx.fill();
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Tie
+            ctx.beginPath();
+            ctx.moveTo(256, 340);
+            ctx.lineTo(246, 380);
+            ctx.lineTo(266, 380);
+            ctx.closePath();
+            ctx.fillStyle = '#4a0e4e';
+            ctx.fill();
+            ctx.strokeStyle = '#2a0e2e';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Tie pattern (small stripes)
+            ctx.strokeStyle = '#6a2e6e';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < 3; i++) {
+                const y = 350 + i * 10;
+                ctx.beginPath();
+                ctx.moveTo(250, y);
+                ctx.lineTo(262, y);
+                ctx.stroke();
+            }
+        }
+
+        function generateLogo1() {
+            const canvas = document.getElementById('canvas1');
+            const ctx = canvas.getContext('2d');
+            
+            drawGremlinBase(ctx);
+            drawCrown(ctx);
+            
+            // Add "DARKFLOBI" text at bottom
+            ctx.font = 'bold 24px Arial';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('DARKFLOBI', 256, 450);
+            
+            // Subtitle
+            ctx.font = '14px Arial';
+            ctx.fillStyle = '#cccccc';
+            ctx.fillText('Gremlin Emperor', 256, 470);
+        }
+
+        function generateLogo2() {
+            const canvas = document.getElementById('canvas2');
+            const ctx = canvas.getContext('2d');
+            
+            drawGremlinBase(ctx);
+            drawBusinessSuit(ctx);
+            
+            // Add "DARKFLOBI" text
+            ctx.font = 'bold 24px Arial';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('DARKFLOBI', 256, 450);
+            
+            // Subtitle
+            ctx.font = '14px Arial';
+            ctx.fillStyle = '#cccccc';
+            ctx.fillText('Business Gremlin', 256, 470);
+        }
+
+        function generateLogo3() {
+            const canvas = document.getElementById('canvas3');
+            const ctx = canvas.getContext('2d');
+            
+            drawGremlinBase(ctx);
+            drawCrown(ctx);
+            drawBusinessSuit(ctx);
+            
+            // Add "DARKFLOBI" text
+            ctx.font = 'bold 24px Arial';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('DARKFLOBI', 256, 450);
+            
+            // Subtitle
+            ctx.font = '14px Arial';
+            ctx.fillStyle = '#cccccc';
+            ctx.fillText('CEO Emperor', 256, 470);
+        }
+
+        function downloadCanvas(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Generate all logos on page load
+        window.onload = function() {
+            generateLogo1();
+            generateLogo2();
+            generateLogo3();
+        };
+    </script>
+</body>
+</html>

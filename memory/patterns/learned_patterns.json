@@ -1,0 +1,162 @@
+{
+  "generated_at": "2026-01-28T00:31:45.045161",
+  "email_patterns": [
+    {
+      "promotional_sources": [
+        "StackSocial",
+        "Slickdeals",
+        "Culture Kings",
+        "West Elm",
+        "Architectural Digest",
+        "Uber Eats",
+        "Brooklyn Bowl",
+        "Deferit",
+        "Nextdoor",
+        "Kosterina",
+        "Avis",
+        "CoinTracker",
+        "Microsoft Store",
+        "Robinhood",
+        "MUJI USA",
+        "Pinterest",
+        "Dell Technologies",
+        "Frontier Airlines",
+        "Enterprise Plus"
+      ],
+      "important_sources": [
+        "Google",
+        "Anthropic",
+        "OpenAI",
+        "GitHub",
+        "Brave Search API",
+        "Apple",
+        "Chase",
+        "Experian"
+      ],
+      "promotional_keywords": [
+        "promotion",
+        "deal",
+        "offer",
+        "sale",
+        "discount",
+        "%",
+        "save",
+        "exclusive",
+        "limited time",
+        "hurry",
+        "expires",
+        "now"
+      ],
+      "action_words": [
+        "urgent",
+        "action needed",
+        "verify",
+        "confirm",
+        "security"
+      ]
+    },
+    {
+      "auto_trash": {
+        "from_promotional_sources": true,
+        "contains_promotional_keywords": true,
+        "subject_has_emojis": true,
+        "marketing_language": true
+      },
+      "move_to_receipts": {
+        "from_companies": [
+          "Anthropic",
+          "Apple",
+          "Amazon",
+          "Microsoft"
+        ],
+        "subject_contains": [
+          "receipt",
+          "invoice",
+          "purchase",
+          "payment"
+        ]
+      },
+      "move_to_personal": {
+        "from_financial": [
+          "Chase",
+          "Experian",
+          "Capital One",
+          "Bank"
+        ],
+        "from_investment": [
+          "Coinbase",
+          "Robinhood",
+          "CoinTracker"
+        ],
+        "important_updates": true
+      }
+    }
+  ],
+  "task_patterns": {
+    "email_cleanup": {
+      "strategy": "batch_operations",
+      "success_rate": "high",
+      "time_efficiency": "excellent",
+      "approach": [
+        "pattern_recognition_first",
+        "batch_similar_tasks",
+        "preserve_important_items",
+        "use_existing_folder_structure"
+      ]
+    },
+    "system_setup": {
+      "strategy": "incremental_enhancement",
+      "success_rate": "high",
+      "approach": [
+        "authenticate_first",
+        "test_connectivity",
+        "build_on_existing_infrastructure",
+        "document_progress"
+      ]
+    }
+  },
+  "learning_insights": {
+    "workflow_optimizations": [
+      "Batch similar operations for efficiency",
+      "Use pattern recognition before manual work",
+      "Build incremental improvements vs complete rewrites",
+      "Document successful patterns for reuse"
+    ],
+    "communication_patterns": [
+      "User prefers decisive action over lengthy explanations",
+      "Progress summaries with clear metrics work well",
+      "Technical details appreciated when relevant",
+      "Proactive suggestions valued"
+    ],
+    "next_predictions": [
+      "Email system likely to need ongoing maintenance",
+      "GitHub integration will enable project optimization",
+      "DuoTrader project focus indicates revenue priorities",
+      "System enhancement requests suggest scaling intentions"
+    ]
+  },
+  "automation_suggestions": {
+    "gmail_filters": [
+      {
+        "name": "Auto-trash promotional",
+        "criteria": "from:(StackSocial OR Slickdeals OR Culture Kings OR West Elm OR Architectural Digest OR Uber Eats OR Brooklyn Bowl OR Deferit OR Nextdoor OR Kosterina OR Avis OR CoinTracker OR Microsoft Store OR Robinhood OR MUJI USA OR Pinterest OR Dell Technologies OR Frontier Airlines OR Enterprise Plus)",
+        "action": "Delete"
+      },
+      {
+        "name": "Auto-file receipts",
+        "criteria": "subject:(receipt OR invoice OR payment)",
+        "action": "Label:Receipts, Skip Inbox"
+      },
+      {
+        "name": "Security alerts - Important",
+        "criteria": "from:google.com subject:(security OR verification)",
+        "action": "Label:Security, Star"
+      }
+    ],
+    "bulk_operations": [
+      "Search older emails from promotional sources for bulk delete",
+      "Set up auto-forward for important financial emails",
+      "Create smart labels based on sender patterns"
+    ]
+  }
+}

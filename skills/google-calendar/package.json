@@ -1,0 +1,26 @@
+{
+  "name": "@clawdbot/google-calendar-skill",
+  "version": "1.0.0",
+  "description": "Google Calendar integration skill for Clawdbot",
+  "main": "scripts/gcal-next24.js",
+  "scripts": {
+    "test": "node scripts/gcal-test.js",
+    "today": "node scripts/gcal-next24.js",
+    "today-json": "node scripts/gcal-next24.js --json",
+    "install-deps": "npm install"
+  },
+  "dependencies": {
+    "googleapis": "^134.0.0"
+  },
+  "keywords": [
+    "clawdbot",
+    "google-calendar",
+    "calendar",
+    "scheduling"
+  ],
+  "author": "darkflobi",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

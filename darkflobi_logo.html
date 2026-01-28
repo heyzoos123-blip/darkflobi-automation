@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DARKFLOBI Logo Generator</title>
+</head>
+<body style="margin: 0; padding: 20px; background: #000; font-family: Arial, sans-serif; color: white;">
+    <div style="text-align: center;">
+        <h1>DARKFLOBI Token Logo Generator</h1>
+        <canvas id="logoCanvas" width="512" height="512" style="border: 2px solid #333; background: #000;"></canvas>
+        <br><br>
+        <button onclick="generateLogo()" style="padding: 10px 20px; font-size: 16px; background: #00ff88; color: #000; border: none; cursor: pointer; border-radius: 5px;">Generate Logo</button>
+        <button onclick="downloadLogo()" style="padding: 10px 20px; font-size: 16px; background: #ff4444; color: white; border: none; cursor: pointer; border-radius: 5px; margin-left: 10px;">Download PNG</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('logoCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function generateLogo() {
+            // Clear canvas with dark background
+            ctx.fillStyle = '#0a0a0a';
+            ctx.fillRect(0, 0, 512, 512);
+            
+            // Add subtle tech grid pattern
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineWidth = 1;
+            for(let i = 0; i < 512; i += 32) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, 512);
+                ctx.moveTo(0, i);
+                ctx.lineTo(512, i);
+                ctx.stroke();
+            }
+            
+            // Create circular background for main character
+            const centerX = 256;
+            const centerY = 220;
+            
+            // Outer glow effect
+            const gradient = ctx.createRadialGradient(centerX, centerY, 50, centerX, centerY, 150);
+            gradient.addColorStop(0, '#00ff8844');
+            gradient.addColorStop(0.7, '#00ff8822');
+            gradient.addColorStop(1, '#00ff8800');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 512, 512);
+            
+            // Main character circle background
+            ctx.fillStyle = '#1a1a1a';
+            ctx.strokeStyle = '#00ff88';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 120, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Gremlin face - head shape
+            ctx.fillStyle = '#2a2a2a';
+            ctx.beginPath();
+            ctx.ellipse(centerX, centerY - 10, 80, 85, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Ears - pointed gremlin ears
+            ctx.fillStyle = '#2a2a2a';
+            ctx.beginPath();
+            ctx.moveTo(centerX - 65, centerY - 40);
+            ctx.lineTo(centerX - 95, centerY - 80);
+            ctx.lineTo(centerX - 45, centerY - 60);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.moveTo(centerX + 65, centerY - 40);
+            ctx.lineTo(centerX + 95, centerY - 80);
+            ctx.lineTo(centerX + 45, centerY - 60);
+            ctx.fill();
+            
+            // Inner ears
+            ctx.fillStyle = '#00ff88';
+            ctx.beginPath();
+            ctx.moveTo(centerX - 60, centerY - 45);
+            ctx.lineTo(centerX - 75, centerY - 65);
+            ctx.lineTo(centerX - 50, centerY - 55);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.moveTo(centerX + 60, centerY - 45);
+            ctx.lineTo(centerX + 75, centerY - 65);
+            ctx.lineTo(centerX + 50, centerY - 55);
+            ctx.fill();
+            
+            // Eyes - large, mischievous
+            ctx.fillStyle = '#00ff88';
+            ctx.beginPath();
+            ctx.ellipse(centerX - 25, centerY - 25, 20, 25, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.ellipse(centerX + 25, centerY - 25, 20, 25, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Eye pupils
+            ctx.fillStyle = '#0a0a0a';
+            ctx.beginPath();
+            ctx.ellipse(centerX - 25, centerY - 20, 8, 12, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.ellipse(centerX + 25, centerY - 20, 8, 12, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Eye highlights - for that mischievous sparkle
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.ellipse(centerX - 22, centerY - 25, 3, 4, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.ellipse(centerX + 28, centerY - 25, 3, 4, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Mouth - grinning 😁
+            ctx.strokeStyle = '#00ff88';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY + 10, 25, 0.2 * Math.PI, 0.8 * Math.PI);
+            ctx.stroke();
+            
+            // Teeth for the grin
+            ctx.fillStyle = '#ffffff';
+            for(let i = 0; i < 5; i++) {
+                ctx.fillRect(centerX - 20 + (i * 8), centerY + 20, 4, 8);
+            }
+            
+            // Add small tech elements around the character
+            ctx.strokeStyle = '#00ff88';
+            ctx.lineWidth = 2;
+            
+            // Circuit-like decorations
+            for(let i = 0; i < 8; i++) {
+                const angle = (i / 8) * 2 * Math.PI;
+                const x1 = centerX + Math.cos(angle) * 140;
+                const y1 = centerY + Math.sin(angle) * 140;
+                const x2 = centerX + Math.cos(angle) * 160;
+                const y2 = centerY + Math.sin(angle) * 160;
+                
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+                
+                // Small circles at the end
+                ctx.fillStyle = '#00ff88';
+                ctx.beginPath();
+                ctx.arc(x2, y2, 3, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            
+            // Token name at bottom
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 36px Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('DARKFLOBI', centerX, 420);
+            
+            // Subtitle
+            ctx.fillStyle = '#00ff88';
+            ctx.font = 'bold 18px Arial, sans-serif';
+            ctx.fillText('AI CEO TOKEN', centerX, 450);
+            
+            // Add some digital noise effect
+            for(let i = 0; i < 100; i++) {
+                const x = Math.random() * 512;
+                const y = Math.random() * 512;
+                ctx.fillStyle = `rgba(0, 255, 136, ${Math.random() * 0.1})`;
+                ctx.fillRect(x, y, 1, 1);
+            }
+            
+            console.log('Logo generated successfully!');
+        }
+        
+        function downloadLogo() {
+            const link = document.createElement('a');
+            link.download = 'darkflobi_token_logo_512x512.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Generate logo on page load
+        generateLogo();
+    </script>
+</body>
+</html>
