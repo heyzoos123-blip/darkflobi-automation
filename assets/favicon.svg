@@ -1,0 +1,21 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Simplified gremlin head for favicon -->
+  <circle cx="16" cy="16" r="12" fill="#1a1a1a" stroke="#00d4ff" stroke-width="1" filter="url(#glow)"/>
+  
+  <!-- Eyes -->
+  <circle cx="13" cy="14" r="2" fill="#00d4ff" filter="url(#glow)"/>
+  <circle cx="19" cy="14" r="2" fill="#00d4ff" filter="url(#glow)"/>
+  
+  <!-- Signature grin -->
+  <path d="M 10 18 Q 16 21 22 18" stroke="#ff6b00" stroke-width="1.5" fill="none" stroke-linecap="round" filter="url(#glow)"/>
+</svg>

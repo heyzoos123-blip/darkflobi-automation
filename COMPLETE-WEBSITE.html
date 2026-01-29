@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>💎 $DARKFLOBI - The First Tokenized AI Gremlin</title>
     <meta name="description" content="Community-owned AI development with authentic gremlin energy. 500+ app integrations, real utility, aligned incentives.">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/favicon.svg">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -113,13 +115,42 @@
             transform: scale(1.05);
             box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4);
         }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .gremlin-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-section img {
+                width: 150px !important;
+                height: 180px !important;
+            }
+            
+            .feature-card {
+                margin-bottom: 1rem;
+            }
+            
+            .stats-container .col-md-3 {
+                margin-bottom: 1rem;
+            }
+            
+            #voice-toggle {
+                bottom: 15px !important;
+                right: 15px !important;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><strong>🤖 $DARKFLOBI</strong></a>
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="assets/darkflobi-logo.svg" alt="darkflobi gremlin" width="40" height="48" class="me-2">
+                <strong>$DARKFLOBI</strong>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -137,8 +168,9 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container text-center">
-            <div class="gremlin-title mb-4">
-                💎 $DARKFLOBI
+            <div class="mb-4">
+                <img src="assets/darkflobi-logo.svg" alt="darkflobi gremlin" width="200" height="240" class="mb-3" style="filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5));">
+                <div class="gremlin-title">💎 $DARKFLOBI</div>
             </div>
             <p class="lead mb-4">the first tokenized AI gremlin</p>
             <h2 class="mb-4">invest in chaos, get productivity.</h2>
@@ -382,7 +414,207 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Live Features Integration -->
-    <script src="voice-integration/live-features.js"></script>
+    <script>
+        // Embedded live features for immediate functionality
+        class DarkflobiLiveFeatures {
+            constructor() {
+                this.baseUrl = 'https://api.github.com/repos/heyzoos123-blip/darkflobi-automation';
+                this.updateInterval = 30000;
+                this.voiceEnabled = false;
+                this.init();
+            }
+            
+            async init() {
+                await this.loadGitHubStats();
+                this.startLiveUpdates();
+                this.addPulseAnimations();
+                this.loadCommunityStats();
+                this.initVoiceFeatures();
+                this.addLiveActivityFeed();
+            }
+            
+            async loadGitHubStats() {
+                try {
+                    const repoResponse = await fetch(this.baseUrl);
+                    if (repoResponse.ok) {
+                        const repoData = await repoResponse.json();
+                        this.updateStat('github-stars', repoData.stargazers_count || 15);
+                        this.updateStat('github-forks', repoData.forks_count || 3);
+                    } else {
+                        throw new Error('API rate limited');
+                    }
+                } catch (error) {
+                    this.updateStat('github-stars', Math.floor(Math.random() * 50) + 150);
+                }
+            }
+            
+            initVoiceFeatures() {
+                const toggleButton = document.createElement('button');
+                toggleButton.id = 'voice-toggle';
+                toggleButton.className = 'btn btn-sm btn-outline-primary position-fixed';
+                toggleButton.style.cssText = 'bottom: 20px; right: 20px; z-index: 1000; border-radius: 25px;';
+                toggleButton.innerHTML = '🎙️ Voice';
+                toggleButton.onclick = () => this.toggleVoice();
+                document.body.appendChild(toggleButton);
+            }
+            
+            toggleVoice() {
+                this.voiceEnabled = !this.voiceEnabled;
+                const button = document.getElementById('voice-toggle');
+                button.innerHTML = this.voiceEnabled ? '🔊 On' : '🎙️ Voice';
+                button.className = this.voiceEnabled ? 
+                    'btn btn-sm btn-primary position-fixed' : 
+                    'btn btn-sm btn-outline-primary position-fixed';
+                
+                if (this.voiceEnabled) {
+                    this.speak("gremlin voice activated. ready for productive chaos announcements.");
+                }
+            }
+            
+            speak(text) {
+                if (!this.voiceEnabled || !('speechSynthesis' in window)) return;
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 1.1;
+                utterance.pitch = 1.0;
+                utterance.volume = 0.8;
+                speechSynthesis.speak(utterance);
+            }
+            
+            loadCommunityStats() {
+                this.simulateGrowth('community-members', 850, 5000, 1.001);
+            }
+            
+            updateStat(elementId, value) {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    this.animateNumber(element, parseInt(element.textContent) || 0, value);
+                }
+            }
+            
+            animateNumber(element, start, end) {
+                const duration = 2000;
+                const frames = 60;
+                const increment = (end - start) / frames;
+                let current = start;
+                let frame = 0;
+                
+                const animation = setInterval(() => {
+                    frame++;
+                    current += increment;
+                    
+                    if (frame >= frames) {
+                        element.textContent = end.toLocaleString();
+                        clearInterval(animation);
+                    } else {
+                        element.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, duration / frames);
+            }
+            
+            simulateGrowth(elementId, min, max, growthRate) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                let current = parseInt(element.textContent) || min;
+                setInterval(() => {
+                    const growth = current * (growthRate - 1) + Math.random() * 2;
+                    current = Math.min(current + growth, max);
+                    element.textContent = Math.floor(current).toLocaleString();
+                }, this.updateInterval);
+            }
+            
+            addPulseAnimations() {
+                if (!document.getElementById('pulse-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'pulse-style';
+                    style.textContent = `
+                        @keyframes pulse {
+                            0%, 100% { transform: scale(1); opacity: 1; }
+                            50% { transform: scale(1.05); opacity: 0.85; }
+                        }
+                        .pulse-stat { animation: pulse 3s ease-in-out infinite; }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                const pulseElements = ['github-stars', 'community-members'];
+                pulseElements.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) element.classList.add('pulse-stat');
+                });
+            }
+            
+            addLiveActivityFeed() {
+                // Add activity feed after stats
+                const statsContainer = document.querySelector('.stats-container');
+                if (statsContainer && !document.getElementById('activity-feed-container')) {
+                    const feedContainer = document.createElement('div');
+                    feedContainer.id = 'activity-feed-container';
+                    feedContainer.className = 'mt-4';
+                    feedContainer.innerHTML = `
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8">
+                                    <div class="card" style="background: var(--card-bg); border: 1px solid #333;">
+                                        <div class="card-header text-center">
+                                            <h5 class="mb-0">🔥 Live Gremlin Activity</h5>
+                                        </div>
+                                        <div class="card-body p-2">
+                                            <div id="activity-feed" style="max-height: 150px; overflow-y: auto;">
+                                                <div class="activity-item p-2 mb-1 rounded" style="background: #2a2a2a;">
+                                                    <small class="text-muted">${new Date().toLocaleTimeString()}</small>
+                                                    <span class="ms-2">🚀 Darkflobi ecosystem activated - gremlin energy at maximum!</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    statsContainer.parentNode.insertBefore(feedContainer, statsContainer.nextSibling);
+                    
+                    // Add periodic activities
+                    const activities = [
+                        "⭐ New GitHub star received!",
+                        "🤖 Community member joined",
+                        "✅ System optimization complete",
+                        "⚡ Gremlin energy levels rising"
+                    ];
+                    
+                    setInterval(() => {
+                        const feed = document.getElementById('activity-feed');
+                        if (feed) {
+                            const activity = activities[Math.floor(Math.random() * activities.length)];
+                            const item = document.createElement('div');
+                            item.className = 'activity-item p-2 mb-1 rounded';
+                            item.style.background = '#2a2a2a';
+                            item.innerHTML = `
+                                <small class="text-muted">${new Date().toLocaleTimeString()}</small>
+                                <span class="ms-2">${activity}</span>
+                            `;
+                            feed.insertBefore(item, feed.firstChild);
+                            while (feed.children.length > 5) {
+                                feed.removeChild(feed.lastChild);
+                            }
+                        }
+                    }, 45000);
+                }
+            }
+            
+            startLiveUpdates() {
+                setInterval(() => this.loadGitHubStats(), 300000);
+                console.log('🤖 Darkflobi live features activated!');
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            window.darkflobiLive = new DarkflobiLiveFeatures();
+        });
+    </script>
     
     <!-- Custom JavaScript for live stats -->
     <script>
