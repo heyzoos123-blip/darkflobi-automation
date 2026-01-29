@@ -1,0 +1,30 @@
+# Darkflobi Automation - Python Dependencies
+# Core functionality works with minimal dependencies
+
+# Essential (usually available)
+requests>=2.31.0
+
+# AI and Automation (optional but recommended)
+anthropic>=0.8.0
+# openai>=1.3.0  # Alternative AI provider
+
+# Twitter Automation (optional - fallback to file-based)
+# tweepy>=4.14.0  # Official Twitter API client
+
+# Utility Libraries (optional but helpful)
+# python-dotenv>=1.0.0    # Environment variable management
+# pillow>=10.0.0          # Image processing
+# python-dateutil>=2.8.0  # Date/time handling
+# pytz>=2023.3            # Timezone support
+
+# Web and API (optional)
+# beautifulsoup4>=4.12.0  # Web scraping
+# feedparser>=6.0.0       # RSS feeds
+
+# Note: Many dependencies are optional
+# The system gracefully degrades if packages aren't available
+# Install what you can, core features work with standard library only
+
+# Installation in constrained environments:
+# pip install requests anthropic  # Basic functionality
+# pip install tweepy pillow python-dotenv  # Enhanced features

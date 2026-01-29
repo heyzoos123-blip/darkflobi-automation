@@ -1,0 +1,52 @@
+{
+  "name": "darkflobi-automation",
+  "version": "1.0.0",
+  "description": "Chaotic gremlin energy meets enterprise-grade automation. Twitter domination with personality.",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "./deploy.sh",
+    "start": "node messaging-platforms/whatsapp/whatsapp-gateway.js",
+    "twitter:generate": "python3 twitter-automation/enhanced-twitter.py --generate",
+    "twitter:post": "python3 twitter-automation/enhanced-twitter.py --post",
+    "twitter:monitor": "python3 twitter-automation/enhanced-twitter.py --monitor",
+    "composio:test": "python3 composio-integration/test.py",
+    "composio:apps": "python3 composio-integration/composio-tool.py --list-apps",
+    "whatsapp:start": "node messaging-platforms/whatsapp/whatsapp-gateway.js",
+    "test": "python3 composio-integration/test.py"
+  },
+  "keywords": [
+    "ai",
+    "automation", 
+    "twitter",
+    "composio",
+    "whatsapp",
+    "telegram",
+    "social-media",
+    "gremlin",
+    "darkflobi",
+    "bot"
+  ],
+  "author": "Darkflobi Collective",
+  "license": "MIT",
+  "dependencies": {
+    "@composio/core": "latest",
+    "@whiskeysockets/baileys": "^6.7.16",
+    "qrcode-terminal": "^0.12.0"
+  },
+  "optionalDependencies": {
+    "node-telegram-bot-api": "^0.66.0",
+    "playwright": "^1.58.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "python": ">=3.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darkflobi/darkflobi-automation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/darkflobi/darkflobi-automation/issues"
+  },
+  "homepage": "https://github.com/darkflobi/darkflobi-automation#readme"
+}

@@ -1,0 +1,26 @@
+# Twitter/X Automation Dependencies
+# Note: Many dependencies are optional and will gracefully fallback
+
+# Essential (try to install if possible)
+requests                    # HTTP requests - usually available
+tweepy                      # Official Twitter API v2 client (optional)
+
+# Optional utilities (install if you can)
+# python-dotenv             # Environment variable management (optional)
+# pillow                    # Image processing for media uploads (optional)
+# schedule                  # Simple job scheduling (optional)
+# python-dateutil           # Date/time parsing (optional)
+# pytz                      # Timezone handling (optional)
+
+# AI/Content Generation (optional)  
+# openai                    # For content generation (optional)
+# anthropic                 # Alternative AI provider (optional)
+
+# Advanced features (optional)
+# beautifulsoup4            # Web scraping for content analysis (optional)
+# feedparser                # RSS feed monitoring (optional)
+# textstat                  # Content readability analysis (optional)
+
+# Installation note:
+# If you get "externally-managed-environment" errors, the skill will work
+# with basic functionality using only standard library modules
