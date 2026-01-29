@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  darkflobi-web:
+    build: .
+    container_name: darkflobi-web
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - DARKFLOBI_MODE=web
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    
+  darkflobi-automation:
+    build: .
+    container_name: darkflobi-automation
+    environment:
+      - NODE_ENV=production
+      - DARKFLOBI_MODE=automation
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - COMPOSIO_API_KEY=${COMPOSIO_API_KEY}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    depends_on:
+      - darkflobi-web
+      
+  darkflobi-voice:
+    build: .
+    container_name: darkflobi-voice
+    environment:
+      - NODE_ENV=production
+      - DARKFLOBI_MODE=voice
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./audio:/app/audio
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: darkflobi-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: darkflobi-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/ssl/certs
+    depends_on:
+      - darkflobi-web
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+
+networks:
+  default:
+    name: darkflobi-network
