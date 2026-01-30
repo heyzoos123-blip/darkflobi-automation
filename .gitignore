@@ -1,0 +1,100 @@
+# DARKFLOBI SECURITY - SENSITIVE FILES TO NEVER COMMIT
+
+# API Keys and Secrets
+.env
+.env.*
+*.key
+*.pem
+*_key
+*_secret
+api_keys.json
+secrets.json
+config/secrets/
+
+# Private Keys (Crypto)
+*.wallet
+*private*key*
+seed.txt
+mnemonic.txt
+
+# Audio/Media Files (Large)
+*.mp3
+*.wav
+*.ogg
+*.m4a
+audio/*.mp3
+audio/*.wav
+voice-integration/audio/*.mp3
+voice-integration/audio/*.wav
+
+# Revenue/Financial Data (Sensitive)
+revenue_actual.json
+financial_data.json
+earnings.json
+
+# Temporary/Cache Files
+*.tmp
+*.cache
+.cache/
+tmp/
+temp/
+*.log
+
+# Development/Debug Files
+debug.log
+test_output.json
+debug_*.py
+
+# User-Specific Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.venv
+
+# Node.js
+node_modules/
+npm-debug.log*
+.npm
+
+# Git Conflict Files
+*.orig
+
+# Backup Files
+*.backup
+*.bak
+*.old
+
+# Local Development Overrides
+config.local.json
+settings.local.json
+
+# Browser Automation
+browser_cache/
+screenshots/
+downloads/
+
+# Memory State Files (Potentially Sensitive)
+memory/*state*
+memory/*private*
+*state.json
+*session.json
+
+# Clawdbot Specific
+clawdbot.log
+gateway.log
