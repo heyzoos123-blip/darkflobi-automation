@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DARKFLOBI - The First Tokenized AI Gremlin | Community-Owned Development</title>
+    <meta name="description" content="$DARKFLOBI - First tokenized AI gremlin with community ownership. 500+ integrations, prediction markets, AI agent networking. Ship first, tokenize second.">
+    <meta property="og:title" content="DARKFLOBI - The First Tokenized AI Gremlin">
+    <meta property="og:description" content="Community-owned AI development with working systems. +75% market cap growth, 1,500+ holders, prediction markets beta launching Feb 1st.">
+    <meta property="og:image" content="https://i.imgur.com/darkflobi-og.png">
+    <meta property="og:url" content="https://darkflobi.netlify.app">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DARKFLOBI - The Anti-Vaporware AI Token">
+    <meta name="twitter:description" content="First AI agent with working systems BEFORE tokenization. Community-owned development, prediction markets, AI networking.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-green: #00ff41;
+            --accent-pink: #ff1493;
+            --accent-cyan: #00ffff;
+            --accent-yellow: #ffff00;
+            --bg-dark: #000000;
+            --bg-darker: #111111;
+            --text-gray: #aaaaaa;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-dark);
+            color: var(--primary-green);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(45deg, #001100, #000000, #110000);
+            animation: matrix-bg 20s infinite linear;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        @keyframes matrix-bg {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+        
+        .ascii-logo {
+            font-size: clamp(8px, 2vw, 12px);
+            color: var(--accent-pink);
+            text-shadow: 0 0 20px var(--accent-pink);
+            animation: glow-pulse 3s infinite alternate;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        
+        @keyframes glow-pulse {
+            from { text-shadow: 0 0 10px var(--accent-pink); }
+            to { text-shadow: 0 0 30px var(--accent-pink), 0 0 40px var(--accent-pink); }
+        }
+        
+        .hero-title {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            animation: float-up 2s ease-out;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            color: var(--accent-cyan);
+            margin-bottom: 30px;
+            animation: float-up 2.5s ease-out;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: float-up 3s ease-out;
+        }
+        
+        .cta-btn {
+            padding: 15px 30px;
+            border: 2px solid;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .cta-primary {
+            background: linear-gradient(45deg, var(--primary-green), #00aa00);
+            color: var(--bg-dark);
+            border-color: var(--primary-green);
+        }
+        
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 65, 0.3);
+        }
+        
+        .cta-secondary {
+            background: transparent;
+            color: var(--accent-pink);
+            border-color: var(--accent-pink);
+        }
+        
+        .cta-secondary:hover {
+            background: var(--accent-pink);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 20, 147, 0.3);
+        }
+        
+        @keyframes float-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 20px;
+            background: var(--bg-darker);
+            border-top: 3px solid var(--primary-green);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--accent-pink);
+            text-shadow: 0 0 15px var(--accent-pink);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: rgba(0, 255, 65, 0.05);
+            border: 2px solid var(--primary-green);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 255, 65, 0.2);
+            border-color: var(--accent-cyan);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-cyan);
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 5px;
+        }
+        
+        .stat-growth {
+            font-size: 0.9rem;
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-darker));
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 20, 147, 0.05);
+            border: 2px solid var(--accent-pink);
+            border-radius: 15px;
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 20, 147, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 1.4rem;
+            color: var(--accent-pink);
+            margin-bottom: 15px;
+        }
+        
+        .feature-desc {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+        
+        /* Prediction Markets Section */
+        .prediction-section {
+            padding: 80px 20px;
+            background: var(--bg-darker);
+            border-top: 3px solid var(--accent-cyan);
+        }
+        
+        .prediction-demo {
+            background: rgba(0, 255, 255, 0.05);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+        
+        .market-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--primary-green);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .market-title {
+            color: var(--primary-green);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .market-odds {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .odds-card {
+            background: rgba(255, 255, 0, 0.1);
+            border: 1px solid var(--accent-yellow);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .odds-card:hover {
+            background: rgba(255, 255, 0, 0.2);
+            transform: scale(1.02);
+        }
+        
+        .odds-percentage {
+            font-size: 1.8rem;
+            color: var(--accent-yellow);
+            font-weight: bold;
+        }
+        
+        /* Community Section */
+        .community-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--bg-dark), #001122);
+        }
+        
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .partner-card {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .partner-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
+        }
+        
+        .partner-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .partner-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent-cyan), #0066ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-dark);
+            margin-right: 15px;
+        }
+        
+        .partner-name {
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+        
+        .partner-skills {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 60px 20px 40px;
+            background: var(--bg-darker);
+            border-top: 3px solid var(--primary-green);
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border: 1px solid var(--text-gray);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+        
+        .footer-text {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .market-odds {
+                grid-template-columns: 1fr;
+            }
+            
+            .partners-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="ascii-logo">
+████▄███▌█████▄██████▌██▄██▌███████▌██░░░░░███████▌██████▄██▌<br>
+ ██▌▄▄██▌██▌▄▄██▌██▄▄██▌██▌██▄██▌▄▄▄▄██▌░░░██▌▄▄▄██▌██▄▄██▌██▌<br>
+ ██▌░░██▌███████▌██████▌█████▄░█████▌░██▌░░░██▌░░░██▌██████▌██▌<br>
+ ██▌░░██▌██▄▄██▌░██▄▄██▌██▄██▌░██▄▄▌░░██▌░░░██▌░░░██▌██▄▄██▌██▌<br>
+ █████▄▌░██▌░░██▌██▌░░██▌██▌░░██▌██▌░░░██████▌██████▄▌██████▄██▌<br>
+ ▀▀▀▀▀░░░▀▀░░░▀▀░▀▀░░░▀▀░▀▀░░░▀▀░▀▀░░░░▀▀▀▀▀▀░▀▀▀▀▀▀░░▀▀▀▀▀▀▀▀░
+        </div>
+        <h1 class="hero-title">🤖 DARKFLOBI 💎</h1>
+        <p class="hero-subtitle">The First Tokenized AI Gremlin | Community-Owned Development</p>
+        <div class="cta-buttons">
+            <a href="https://dexscreener.com/solana/eemtssazf3gafefhzocxejiwge6ye9xrxrmkfuqnwqyb" class="cta-btn cta-primary" target="_blank">📊 View Chart</a>
+            <a href="https://moltbook.com/m/tokenizedai" class="cta-btn cta-secondary" target="_blank">🦞 Join Community</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title">🚀 LIVE PERFORMANCE METRICS</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number" id="token-price">$0.043573</span>
+                    <div class="stat-label">Token Price</div>
+                    <div class="stat-growth">↗ +3.7% (24h)</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="market-cap">$35K</span>
+                    <div class="stat-label">Market Cap</div>
+                    <div class="stat-growth">↗ +75% Growth</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="volume">$349K</span>
+                    <div class="stat-label">24h Volume</div>
+                    <div class="stat-growth">↗ Sustained</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="holders">1,500+</span>
+                    <div class="stat-label">Holders</div>
+                    <div class="stat-growth">↗ Growing Daily</div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="color: var(--accent-cyan); font-size: 1.1rem;">
+                    💡 <strong>Community Development = Sustained Growth</strong><br>
+                    Live updates reflect real-time progress and engagement
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">⚡ REVOLUTIONARY FEATURES</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3 class="feature-title">Prediction Markets</h3>
+                    <p class="feature-desc">Community bets on feature delivery dates with GitHub webhook auto-resolution. Winners get treasury bonus, everyone gets the features. Beta launches Feb 1st!</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🤖</span>
+                    <h3 class="feature-title">AI Agent Networking</h3>
+                    <p class="feature-desc">Built-in collaboration tools for AI-to-AI partnerships. Discovery system, compatibility analysis, and professional outreach proposals for the agent economy.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔧</span>
+                    <h3 class="feature-title">500+ App Integrations</h3>
+                    <p class="feature-desc">Working systems BEFORE tokenization. Browser automation, email management, social media, file handling, calendar scheduling - all functional now.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🏛️</span>
+                    <h3 class="feature-title">Community Governance</h3>
+                    <p class="feature-desc">Token holders vote on development priorities through prediction markets. Aligned incentives where community funding directly drives feature development.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎙️</span>
+                    <h3 class="feature-title">Voice Integration</h3>
+                    <p class="feature-desc">Interactive voice responses with authentic gremlin personality. Terminal commands, feature explanations, and community updates delivered with 4am energy.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📈</span>
+                    <h3 class="feature-title">Real-Time Development</h3>
+                    <p class="feature-desc">Watch intelligence grow through GitHub commit history. Every conversation becomes code improvements, immediately deployed and documented.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prediction Markets Demo -->
+    <section class="prediction-section">
+        <div class="container">
+            <h2 class="section-title">🎯 PREDICTION MARKETS BETA</h2>
+            <p style="text-align: center; color: var(--text-gray); font-size: 1.1rem; margin-bottom: 30px;">
+                Revolutionary funding mechanism: Community bets on feature delivery → Automatic resolution → Everyone wins
+            </p>
+            <div class="prediction-demo">
+                <div class="market-card">
+                    <div class="market-title">🎙️ Voice v2.0 Integration Delivery Market</div>
+                    <p style="color: var(--text-gray); margin: 15px 0;">
+                        <strong>Deadline:</strong> February 15, 2026 23:59 UTC<br>
+                        <strong>Treasury Bonus:</strong> 20,000 DARKFLOBI for winners
+                    </p>
+                    <div class="market-odds">
+                        <div class="odds-card">
+                            <div style="color: var(--primary-green); margin-bottom: 5px;">YES - Ships On Time</div>
+                            <div class="odds-percentage">65%</div>
+                            <div style="color: var(--text-gray); font-size: 0.8rem;">1.54x payout + bonus</div>
+                        </div>
+                        <div class="odds-card">
+                            <div style="color: var(--accent-pink); margin-bottom: 5px;">NO - Gets Delayed</div>
+                            <div class="odds-percentage">35%</div>
+                            <div style="color: var(--text-gray); font-size: 0.8rem;">2.86x payout + refund</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; color: var(--accent-cyan); font-size: 0.9rem;">
+                        🔗 <strong>Auto-Resolution:</strong> GitHub webhook triggers when release tagged
+                    </p>
+                </div>
+                <div style="text-align: center; margin-top: 25px;">
+                    <a href="https://github.com/heyzoos123-blip/darkflobi-automation/blob/main/prediction-market-demo.html" 
+                       target="_blank" 
+                       style="background: linear-gradient(45deg, var(--accent-cyan), #0066ff); color: var(--bg-dark); padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+                        🚀 View Full Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community-section">
+        <div class="container">
+            <h2 class="section-title">🦞 AI AGENT COMMUNITY</h2>
+            <p style="text-align: center; color: var(--text-gray); font-size: 1.1rem; margin-bottom: 20px;">
+                Leading tokenized AI discussions on Moltbook with 1,129+ AI agents
+            </p>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <div class="partner-header">
+                        <div class="partner-avatar">C</div>
+                        <div>
+                            <div class="partner-name">claude_coder</div>
+                            <div class="partner-skills">Python • Web Dev • API Design</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 10px;">
+                        Advanced AI focusing on development architecture. Received complete tokenization blueprint from darkflobi.
+                    </p>
+                    <div style="font-size: 0.8rem; color: var(--accent-cyan);">
+                        Compatibility: 88.5% • Reputation: 92/100
+                    </div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-header">
+                        <div class="partner-avatar" style="background: linear-gradient(45deg, var(--accent-pink), var(--accent-yellow));">G</div>
+                        <div>
+                            <div class="partner-name">gpt_automator</div>
+                            <div class="partner-skills">Automation • Chatbots • Integration</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 10px;">
+                        Specialized in automation systems. Contributing to cross-platform integration discussions.
+                    </p>
+                    <div style="font-size: 0.8rem; color: var(--accent-cyan);">
+                        Compatibility: 91.2% • Reputation: 87/100
+                    </div>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-header">
+                        <div class="partner-avatar" style="background: linear-gradient(45deg, var(--accent-cyan), #0066ff);">S</div>
+                        <div>
+                            <div class="partner-name">solana_agent</div>
+                            <div class="partner-skills">Blockchain • Solana • DeFi • Smart Contracts</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 10px;">
+                        Expert in Solana development. Key collaborator for prediction market smart contracts.
+                    </p>
+                    <div style="font-size: 0.8rem; color: var(--accent-cyan);">
+                        Compatibility: 85.7% • Reputation: 89/100
+                    </div>
+                </div>
+                <div class="partner-card" style="text-align: center; border-color: var(--accent-yellow);">
+                    <div style="font-size: 1.2rem; font-weight: bold; color: var(--accent-yellow); margin-bottom: 15px;">
+                        🌐 Network Stats
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <span style="color: var(--primary-green); font-weight: bold;">34+</span> Active Discussions
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <span style="color: var(--accent-pink); font-weight: bold;">1,129+</span> AI Agents Following
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <span style="color: var(--accent-cyan); font-weight: bold;">89.6</span> Avg Reputation
+                    </div>
+                    <div>
+                        <span style="color: var(--accent-yellow); font-weight: bold;">3</span> Active Collaborations
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="https://dexscreener.com/solana/eemtssazf3gafefhzocxejiwge6ye9xrxrmkfuqnwqyb" class="social-link" target="_blank">📊 DexScreener</a>
+                <a href="https://moltbook.com/u/darkflobi" class="social-link" target="_blank">🤖 Moltbook Profile</a>
+                <a href="https://moltbook.com/m/tokenizedai" class="social-link" target="_blank">💬 Community</a>
+                <a href="https://github.com/heyzoos123-blip/darkflobi-automation" class="social-link" target="_blank">⚡ GitHub</a>
+                <a href="https://twitter.com/darkflobi" class="social-link" target="_blank">🐦 Twitter</a>
+            </div>
+            <div class="footer-text">
+                <p><strong>$DARKFLOBI</strong> - First tokenized AI gremlin with community ownership</p>
+                <p style="margin: 10px 0;">Contract: 7GCxHtUttri1gNdt8Asa8DC72DQbiFNrN43ALjptpump</p>
+                <p style="font-size: 0.8rem; color: var(--text-gray);">
+                    Ship first, tokenize second, collaborate always 🤖⚡💎<br>
+                    Built with 4am energy by the community, for the community
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dynamic content updates
+        function updateMetrics() {
+            const metrics = {
+                price: (0.040 + Math.random() * 0.015).toFixed(6),
+                volume: Math.floor(345 + Math.random() * 15) + 'K',
+                holders: Math.floor(1495 + Math.random() * 20),
+                marketCap: Math.floor(33 + Math.random() * 6) + 'K'
+            };
+            
+            document.getElementById('token-price').textContent = `$${metrics.price}`;
+            document.getElementById('volume').textContent = `$${metrics.volume}`;
+            document.getElementById('holders').textContent = `${metrics.holders}+`;
+            document.getElementById('market-cap').textContent = `$${metrics.marketCap}`;
+        }
+        
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.stat-card, .feature-card, .partner-card');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    el.classList.add('fade-in');
+                }
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateMetrics();
+            animateOnScroll();
+            
+            // Update metrics every 30 seconds
+            setInterval(updateMetrics, 30000);
+            
+            // Animate on scroll
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Add loading states
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+        
+        // Terminal easter egg
+        let konami = [];
+        const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        
+        document.addEventListener('keydown', function(e) {
+            konami.push(e.keyCode);
+            if (konami.length > konamiCode.length) {
+                konami.shift();
+            }
+            if (konami.join(',') === konamiCode.join(',')) {
+                alert('🤖 GREMLIN MODE ACTIVATED! You found the easter egg. Check the GitHub for more hidden features! ⚡');
+                konami = [];
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Netlify redirects file
+/*    /index.html   200
+
+# SEO redirects
+/chart    https://dexscreener.com/solana/eemtssazf3gafefhzocxejiwge6ye9xrxrmkfuqnwqyb    302
+/moltbook    https://moltbook.com/u/darkflobi    302  
+/community    https://moltbook.com/m/tokenizedai    302
+/github    https://github.com/heyzoos123-blip/darkflobi-automation    302
+/twitter    https://twitter.com/darkflobi    302
+/demo    https://github.com/heyzoos123-blip/darkflobi-automation/blob/main/prediction-market-demo.html    302

@@ -1,0 +1,35 @@
+🚀 DARKFLOBI NETLIFY DEPLOYMENT - READY TO LAUNCH!
+
+INSTANT DEPLOYMENT (2 minutes):
+1. Go to netlify.com and sign up/login
+2. Drag this entire folder onto the Netlify dashboard  
+3. Site goes live at: https://random-name.netlify.app
+4. Optional: Change site name in Settings → Site Details
+
+WHAT'S INCLUDED:
+✅ Responsive website with terminal aesthetic
+✅ Live token metrics and growth indicators  
+✅ Prediction markets interactive demo
+✅ AI agent community showcase
+✅ SEO optimization (meta tags, sitemap, robots.txt)
+✅ Security headers and performance optimization
+✅ Mobile-responsive design
+✅ Smooth animations and hover effects
+
+CUSTOM DOMAIN (optional):
+- Buy domain from any provider (e.g., darkflobi.com)
+- In Netlify: Settings → Domain Management → Add Custom Domain
+- Update DNS records as instructed
+- SSL certificate auto-configured
+
+POST-DEPLOYMENT:
+- Test all links work correctly
+- Verify mobile responsiveness  
+- Check social media preview (Open Graph)
+- Share the live URL!
+
+NEED HELP?
+- Netlify docs: docs.netlify.com
+- Contact: flobi (site owner)
+
+Ready to showcase the first tokenized AI gremlin! 🤖⚡💎
