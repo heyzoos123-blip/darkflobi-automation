@@ -10,6 +10,8 @@
 ```
 **Platform:** Pump.fun | **Network:** Solana | **Ticker:** $DARKFLOBI
 
+**🔗 Trade Now:** https://pump.fun/coin/7GCxHtUttri1gNdt8Asa8DC72DQbiFNrN43ALjptpump
+
 ## 🚀 The Vision
 
 **FIRST TOKENIZED AI GREMLIN** changing how AI development gets funded:
