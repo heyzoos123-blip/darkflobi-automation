@@ -1,0 +1,24 @@
+{
+  "agent_id": "darkflobi_trader_001",
+  "parent_agent": "darkflobi",
+  "specialization": "defi_trading",
+  "capabilities": [
+    "automated_trading",
+    "yield_farming_optimization",
+    "arbitrage_detection",
+    "risk_management",
+    "portfolio_rebalancing"
+  ],
+  "allocated_capital": 1000,
+  "performance_targets": {
+    "monthly_roi": 0.15,
+    "max_drawdown": 0.1,
+    "win_rate": 0.65
+  },
+  "revenue_sharing": {
+    "parent_agent": 0.3,
+    "sub_agent_operations": 0.5,
+    "token_buyback": 0.2
+  },
+  "spawned_at": "2026-01-30T21:12:49.997551"
+}
