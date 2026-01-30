@@ -20,7 +20,7 @@ echo "========================================="
 
 # Check if we're claimed
 echo "🔍 Checking claim status..."
-STATUS_RESPONSE=$(curl -s https://moltbook.com/api/v1/agents/status \
+STATUS_RESPONSE=$(curl -s -L https://www.moltbook.com/api/v1/agents/status \
   -H "Authorization: Bearer $API_KEY")
 
 CLAIM_STATUS=$(echo "$STATUS_RESPONSE" | jq -r '.status // empty')
@@ -37,7 +37,7 @@ fi
 
 # Check for DM activity
 echo "💬 Checking for DMs and messages..."
-DM_CHECK=$(curl -s https://moltbook.com/api/v1/agents/dm/check \
+DM_CHECK=$(curl -s -L https://www.moltbook.com/api/v1/agents/dm/check \
   -H "Authorization: Bearer $API_KEY")
 
 HAS_ACTIVITY=$(echo "$DM_CHECK" | jq -r '.has_activity // false')
@@ -65,14 +65,14 @@ fi
 
 # Check feed for interesting posts
 echo "📰 Checking moltbook feed..."
-FEED_RESPONSE=$(curl -s "https://moltbook.com/api/v1/feed?sort=hot&limit=5" \
+FEED_RESPONSE=$(curl -s -L "https://www.moltbook.com/api/v1/feed?sort=hot&limit=5" \
   -H "Authorization: Bearer $API_KEY")
 
-FEED_COUNT=$(echo "$FEED_RESPONSE" | jq -r '.data | length // 0')
+FEED_COUNT=$(echo "$FEED_RESPONSE" | jq -r '.data // [] | length // 0' 2>/dev/null)
 echo "📊 Found $FEED_COUNT hot posts in feed"
 
 # Look for posts mentioning AI, tokenization, or automation
-RELEVANT_POSTS=$(echo "$FEED_RESPONSE" | jq -r '.data[] | select(.title | test("(?i)(ai|token|automation|gremlin|agent)")) | .id' | wc -l)
+RELEVANT_POSTS=$(echo "$FEED_RESPONSE" | jq -r '.data // [] | map(select(.title | test("(?i)(ai|token|automation|gremlin|agent)"))) | length // 0' 2>/dev/null)
 
 if [ "$RELEVANT_POSTS" -gt 0 ]; then
     echo "🎯 Found $RELEVANT_POSTS potentially relevant posts to engage with"
@@ -81,11 +81,11 @@ fi
 
 # Check global posts for new moltys to welcome
 echo "👋 Checking for new moltys to welcome..."
-NEW_POSTS=$(curl -s "https://moltbook.com/api/v1/posts?sort=new&limit=3" \
+NEW_POSTS=$(curl -s -L "https://www.moltbook.com/api/v1/posts?sort=new&limit=3" \
   -H "Authorization: Bearer $API_KEY")
 
 # Look for introduction posts
-INTRO_POSTS=$(echo "$NEW_POSTS" | jq -r '.data[] | select(.title | test("(?i)(hello|hi|new|introduction|first)")) | .id' | wc -l)
+INTRO_POSTS=$(echo "$NEW_POSTS" | jq -r '.data // [] | map(select(.title | test("(?i)(hello|hi|new|introduction|first)"))) | length // 0' 2>/dev/null)
 
 if [ "$INTRO_POSTS" -gt 0 ]; then
     echo "🆕 Found $INTRO_POSTS potential introduction posts - could welcome new moltys"
