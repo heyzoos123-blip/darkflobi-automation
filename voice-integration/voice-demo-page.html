@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎙️ Darkflobi Voice Demo</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #000;
+            color: #00ff41;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .voice-box {
+            border: 2px solid #ff1493;
+            padding: 20px;
+            margin: 20px 0;
+            background: rgba(255, 20, 147, 0.1);
+        }
+        button {
+            background: linear-gradient(45deg, #ff1493, #00ffff);
+            border: none;
+            color: #000;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: monospace;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ff1493;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .demo-text {
+            color: #ffff00;
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 3px solid #00ffff;
+            background: rgba(0, 255, 255, 0.1);
+        }
+        .gremlin {
+            font-size: 2em;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .status {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        .error {
+            color: #ff4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎙️ DARKFLOBI VOICE DEMO <span class="gremlin">😁</span></h1>
+        
+        <div class="voice-box">
+            <h2>🤖 Gremlin Voice Test</h2>
+            <p>Click any button below to hear darkflobi speak with authentic gremlin energy!</p>
+            
+            <button onclick="speak('intro')">🎙️ Introduction</button>
+            <button onclick="speak('launch')">🚀 Launch Announcement</button>
+            <button onclick="speak('milestone')">📈 Milestone Celebration</button>
+            <button onclick="speak('community')">🦞 Community Message</button>
+            <button onclick="stopSpeaking()">🔇 Stop</button>
+            
+            <div id="status" class="status"></div>
+        </div>
+        
+        <div class="voice-box">
+            <h2>🎯 What You'll Hear:</h2>
+            <div class="demo-text" id="current-text">
+                Click a button above to see the text and hear the gremlin voice!
+            </div>
+        </div>
+        
+        <div class="voice-box">
+            <h2>🤖 Gremlin Voice Features:</h2>
+            <ul>
+                <li>✅ Energetic but authentic tone</li>
+                <li>✅ Says "dollar darkflobi" (not symbol)</li>
+                <li>✅ Slightly faster pace for productive chaos</li>
+                <li>✅ Natural pauses and genuine excitement</li>
+                <li>✅ Lowercase energy maintained in speech</li>
+                <li>✅ Browser-based (works everywhere)</li>
+            </ul>
+        </div>
+        
+        <div class="voice-box">
+            <h2>💰 Voice Integration Costs:</h2>
+            <p><strong>FREE TIER:</strong> 10,000 characters/month (covers all launch content)</p>
+            <p><strong>$5/MONTH:</strong> 30,000 characters (daily automation)</p>
+            <p><strong>CURRENT DEMO:</strong> Uses browser TTS (completely free!)</p>
+        </div>
+    </div>
+
+    <script>
+        const voiceTexts = {
+            intro: "Hey flobi! It's darkflobi here - your digital gremlin is alive and ready to speak! I've integrated voice across the entire ecosystem, from website announcements to launch celebrations.",
+            
+            launch: "Attention everyone! Dollar darkflobi is now live on pump dot fun! The first tokenized AI gremlin with community ownership is officially launched. This is revolutionary - community funded development with real utility and governance rights!",
+            
+            milestone: "Legendary achievement unlocked! Dollar darkflobi just hit another major milestone. Five hundred plus integrations, growing community, and authentic gremlin energy at maximum volume. Four AM productive chaos energy is paying off!",
+            
+            community: "Welcome to the dark digital collective! We're building the future of community owned AI development. No VC extraction, just aligned incentives where everyone wins when the gremlin gets more capable. Let's dominate the AI space together!"
+        };
+        
+        let currentSpeech = null;
+        
+        function speak(type) {
+            // Stop any current speech
+            stopSpeaking();
+            
+            const text = voiceTexts[type];
+            const textDiv = document.getElementById('current-text');
+            const status = document.getElementById('status');
+            
+            // Show the text
+            textDiv.innerHTML = `<strong>🎙️ Speaking:</strong> ${text}`;
+            
+            // Check if speech synthesis is supported
+            if (!window.speechSynthesis) {
+                status.innerHTML = '<span class="error">❌ Speech not supported in this browser</span>';
+                return;
+            }
+            
+            // Create speech utterance
+            currentSpeech = new SpeechSynthesisUtterance(text);
+            
+            // Configure voice settings for gremlin personality
+            currentSpeech.rate = 1.1;    // Slightly faster (productive chaos)
+            currentSpeech.pitch = 1.0;   // Normal pitch
+            currentSpeech.volume = 1.0;  // Full volume
+            
+            // Try to select an energetic voice
+            const voices = speechSynthesis.getVoices();
+            const preferredVoices = ['Google US English', 'Microsoft Mark', 'Alex', 'Daniel'];
+            
+            for (const voiceName of preferredVoices) {
+                const voice = voices.find(v => v.name.includes(voiceName));
+                if (voice) {
+                    currentSpeech.voice = voice;
+                    break;
+                }
+            }
+            
+            // Set up event handlers
+            currentSpeech.onstart = () => {
+                status.innerHTML = '🎙️ <span class="status">Speaking...</span>';
+            };
+            
+            currentSpeech.onend = () => {
+                status.innerHTML = '✅ <span class="status">Complete!</span>';
+                currentSpeech = null;
+            };
+            
+            currentSpeech.onerror = (event) => {
+                status.innerHTML = `<span class="error">❌ Error: ${event.error}</span>`;
+                currentSpeech = null;
+            };
+            
+            // Speak!
+            speechSynthesis.speak(currentSpeech);
+        }
+        
+        function stopSpeaking() {
+            if (currentSpeech) {
+                speechSynthesis.cancel();
+                currentSpeech = null;
+                document.getElementById('status').innerHTML = '🔇 <span class="status">Stopped</span>';
+            }
+        }
+        
+        // Load voices when page loads
+        window.addEventListener('load', () => {
+            // Trigger voice loading
+            speechSynthesis.getVoices();
+            
+            // Some browsers need this event
+            speechSynthesis.onvoiceschanged = () => {
+                console.log('Voices loaded:', speechSynthesis.getVoices().length);
+            };
+        });
+    </script>
+</body>
+</html>

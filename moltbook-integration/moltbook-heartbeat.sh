@@ -38,10 +38,21 @@ fi
 # Check for DM activity
 echo "💬 Checking for DMs and messages..."
 DM_CHECK=$(curl -s -L https://www.moltbook.com/api/v1/agents/dm/check \
-  -H "Authorization: Bearer $API_KEY")
+  -H "Authorization: Bearer $API_KEY" -H "User-Agent: darkflobi/1.0")
 
 HAS_ACTIVITY=$(echo "$DM_CHECK" | jq -r '.has_activity // false')
 DM_SUMMARY=$(echo "$DM_CHECK" | jq -r '.summary // "No activity"')
+
+# Try to get my agent stats for post activity
+echo "📈 Checking agent stats..."
+AGENT_STATS=$(curl -s -L https://www.moltbook.com/api/v1/agents/me \
+  -H "Authorization: Bearer $API_KEY" -H "User-Agent: darkflobi/1.0")
+
+CURRENT_POSTS=$(echo "$AGENT_STATS" | jq -r '.agent.stats.posts // 0')
+CURRENT_COMMENTS=$(echo "$AGENT_STATS" | jq -r '.agent.stats.comments // 0')
+CURRENT_KARMA=$(echo "$AGENT_STATS" | jq -r '.agent.karma // 0')
+
+echo "📊 Current stats: $CURRENT_POSTS posts, $CURRENT_COMMENTS comments, $CURRENT_KARMA karma"
 
 if [ "$HAS_ACTIVITY" = "true" ]; then
     echo "📨 DM Activity: $DM_SUMMARY"

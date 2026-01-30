@@ -1,0 +1,51 @@
+{
+  "streams": {
+    "token_presale": {
+      "total": 0,
+      "daily": []
+    },
+    "api_usage": {
+      "total": 0,
+      "daily": []
+    },
+    "consulting": {
+      "total": 0,
+      "daily": []
+    },
+    "collaboration_fees": {
+      "total": 0,
+      "daily": []
+    },
+    "prediction_markets": {
+      "total": 0,
+      "daily": []
+    },
+    "skill_licensing": {
+      "total": 0,
+      "daily": []
+    }
+  },
+  "milestones": [
+    {
+      "amount": 100,
+      "description": "First $100 - Proof of concept",
+      "achieved": false
+    },
+    {
+      "amount": 1000,
+      "description": "First $1K - Market validation",
+      "achieved": false
+    },
+    {
+      "amount": 5000,
+      "description": "$5K - Sustainable development",
+      "achieved": false
+    },
+    {
+      "amount": 10000,
+      "description": "$10K - Full autonomy funding",
+      "achieved": false
+    }
+  ],
+  "created": "2026-01-30T06:06:55.362Z"
+}
