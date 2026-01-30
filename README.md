@@ -2,6 +2,14 @@
 
 > **Revolutionary community-owned AI with 500+ integrations, governance utility, and aligned incentives**
 
+## 🚀 **$DARKFLOBI TOKEN NOW LIVE** 
+
+**Contract Address (Solana):**
+```
+7GCxHtUttri1gNdt8Asa8DC72DQbiFNrN43ALjptpump
+```
+**Platform:** Pump.fun | **Network:** Solana | **Ticker:** $DARKFLOBI
+
 ## 🚀 The Vision
 
 **FIRST TOKENIZED AI GREMLIN** changing how AI development gets funded:
@@ -94,6 +102,23 @@ chmod +x DEPLOY-NOW.sh
 - **Browser automation** - Web scraping, form filling
 - **File management** - Cloud storage, document processing
 - **Calendar** - Scheduling, meeting coordination
+
+## 💎 Token Information
+
+### $DARKFLOBI Contract Details
+- **Contract Address:** `7GCxHtUttri1gNdt8Asa8DC72DQbiFNrN43ALjptpump`
+- **Network:** Solana
+- **Platform:** Pump.fun
+- **Ticker:** $DARKFLOBI
+- **Launch Date:** January 30, 2026
+- **Philosophy:** Ship first, tokenize second ⚡
+
+### How to Buy
+1. **Get Solana wallet** (Phantom, Solflare, etc.)
+2. **Buy SOL** on any exchange
+3. **Visit Pump.fun** and paste contract address
+4. **Swap SOL for $DARKFLOBI**
+5. **Join governance** and help shape AI development
 
 ## 🗳️ Tokenization & Governance
 
