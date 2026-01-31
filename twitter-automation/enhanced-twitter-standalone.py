@@ -99,6 +99,63 @@ def add_gremlin_energy(text: str) -> str:
     
     return text
 
+
+    def _determine_posting_method(self):
+        """Determine if we can use Twitter API or need to save to file"""
+        # Check for Twitter credentials
+        if (os.getenv('TWITTER_BEARER_TOKEN') or 
+            (os.getenv('TWITTER_ACCESS_TOKEN') and os.getenv('TWITTER_ACCESS_SECRET'))):
+            return 'api'
+        return 'file'
+    
+    def _post_to_twitter_api(self, text):
+        """Post to Twitter using API v2"""
+        import requests
+        
+        bearer_token = os.getenv('TWITTER_BEARER_TOKEN')
+        if bearer_token:
+            return self._post_with_bearer_token(text, bearer_token)
+        
+        # TODO: Add OAuth 1.0a method for API keys
+        return {'success': False, 'error': 'No supported credentials found'}
+    
+    def _post_with_bearer_token(self, text, bearer_token):
+        """Post using Bearer Token (requires write permissions)"""
+        try:
+            import requests
+            
+            headers = {
+                'Authorization': f'Bearer {bearer_token}',
+                'Content-Type': 'application/json'
+            }
+            
+            payload = {'text': text}
+            
+            response = requests.post(
+                'https://api.twitter.com/2/tweets',
+                headers=headers,
+                json=payload,
+                timeout=30
+            )
+            
+            if response.status_code == 201:
+                data = response.json()
+                return {
+                    'success': True,
+                    'tweet_id': data.get('data', {}).get('id')
+                }
+            else:
+                return {
+                    'success': False,
+                    'error': f'API Error {response.status_code}: {response.text[:200]}'
+                }
+                
+        except Exception as e:
+            return {
+                'success': False,
+                'error': f'Request failed: {str(e)}'
+            }
+
 def generate_content(topic: str = "random") -> str:
     """Generate content using templates"""
     if topic == 'random':
@@ -316,8 +373,28 @@ class EnhancedTwitterBot:
                 'method': 'dry_run'
             }
         
-        # In production, this would use actual APIs
-        # For now, save to file for manual posting
+
+        # FIXED: Real Twitter API posting instead of file-only
+        posting_method = self._determine_posting_method()
+        
+        if posting_method == 'api' and not dry_run:
+            # Use actual Twitter API
+            api_result = self._post_to_twitter_api(enhanced_text)
+            if api_result['success']:
+                self._update_state_after_post(enhanced_text, 'twitter_api')
+                return {
+                    'success': True,
+                    'text': enhanced_text,
+                    'character_count': len(enhanced_text),
+                    'method': 'twitter_api',
+                    'tweet_id': api_result.get('tweet_id'),
+                    'timestamp': datetime.now().isoformat()
+                }
+            else:
+                # Fallback to file if API fails
+                self.log(f"Twitter API failed: {api_result.get('error')}, falling back to file")
+        
+        # Original file-save fallback (when no API or API fails)
         try:
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             filename = f"/tmp/darkflobi_tweet_{timestamp}.txt"

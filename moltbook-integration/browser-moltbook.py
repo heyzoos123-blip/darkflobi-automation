@@ -87,7 +87,17 @@ def check_moltbook_via_browser():
     print("  - General feed for mentions")
     print("  - New posts to engage with")
     
-    return current_stats
+    # Return empty stats if current_stats not defined
+    try:
+        return current_stats
+    except NameError:
+        return {
+            "posts": 0,
+            "comments": 0,
+            "karma": 0,
+            "last_checked": datetime.now().isoformat(),
+            "status": "needs_auth"
+        }
 
 if __name__ == "__main__":
     check_moltbook_via_browser()
