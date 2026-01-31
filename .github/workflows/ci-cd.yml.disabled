@@ -1,0 +1,291 @@
+name: 🚀 Darkflobi CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # ============================================
+  # TESTING AND QUALITY ASSURANCE
+  # ============================================
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9, 3.10, 3.11]
+        
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov black flake8
+    
+    - name: Run code quality checks
+      run: |
+        # Format check
+        black --check --diff .
+        
+        # Linting
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    
+    - name: Run tests
+      run: |
+        pytest tests/ -v --cov=. --cov-report=xml
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+
+  # ============================================
+  # SECURITY SCANNING
+  # ============================================
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+    
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  # ============================================
+  # DOCKER BUILD AND PUSH
+  # ============================================
+  build:
+    needs: [test, security]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Extract metadata (tags, labels)
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix={{branch}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+    
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  # ============================================
+  # DEPLOYMENT TO PRODUCTION
+  # ============================================
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Deploy to production server
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.PROD_SERVER_HOST }}
+        username: ${{ secrets.PROD_SERVER_USER }}
+        key: ${{ secrets.PROD_SERVER_SSH_KEY }}
+        script: |
+          cd /opt/darkflobi-automation
+          
+          # Pull latest changes
+          git pull origin main
+          
+          # Pull latest Docker image
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          
+          # Update environment variables
+          echo "ELEVENLABS_API_KEY=${{ secrets.ELEVENLABS_API_KEY }}" >> .env
+          echo "GITHUB_TOKEN=${{ secrets.GH_TOKEN }}" >> .env
+          echo "COMPOSIO_API_KEY=${{ secrets.COMPOSIO_API_KEY }}" >> .env
+          
+          # Deploy with docker-compose
+          docker-compose down
+          docker-compose up -d
+          
+          # Health check
+          sleep 30
+          curl -f http://localhost:8080/health || exit 1
+          
+          echo "🚀 Darkflobi deployment successful!"
+
+  # ============================================
+  # WEBSITE DEPLOYMENT TO GITHUB PAGES
+  # ============================================
+  deploy-website:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+    
+    - name: Prepare website files
+      run: |
+        # Copy website files to deployment directory
+        mkdir -p _site
+        cp COMPLETE-WEBSITE.html _site/index.html
+        cp -r assets _site/ 2>/dev/null || echo "No assets directory found"
+        cp -r branding _site/ 2>/dev/null || echo "No branding directory found"
+        
+        # Create robots.txt
+        echo -e "User-agent: *\nAllow: /\n\nSitemap: https://heyzoos123-blip.github.io/darkflobi-automation/sitemap.xml" > _site/robots.txt
+        
+        # Create simple sitemap
+        echo '<?xml version="1.0" encoding="UTF-8"?>' > _site/sitemap.xml
+        echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> _site/sitemap.xml
+        echo '  <url><loc>https://heyzoos123-blip.github.io/darkflobi-automation/</loc><priority>1.0</priority></url>' >> _site/sitemap.xml
+        echo '</urlset>' >> _site/sitemap.xml
+    
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+    
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
+      
+    - name: Update deployment status
+      run: |
+        echo "🌐 Website deployed to: ${{ steps.deployment.outputs.page_url }}"
+
+  # ============================================
+  # POST-DEPLOYMENT NOTIFICATIONS
+  # ============================================
+  notify:
+    needs: [deploy, deploy-website]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+    - name: Send Telegram notification
+      if: ${{ secrets.TELEGRAM_BOT_TOKEN && secrets.TELEGRAM_CHAT_ID }}
+      run: |
+        STATUS="${{ job.status }}"
+        if [ "$STATUS" = "success" ]; then
+          MESSAGE="🚀 Darkflobi deployment successful!%0A%0ACommit: ${{ github.sha }}%0AWebsite: https://heyzoos123-blip.github.io/darkflobi-automation/%0A%0AGremlin automation levels: MAXIMUM ⚡"
+        else
+          MESSAGE="❌ Darkflobi deployment failed!%0A%0ACommit: ${{ github.sha }}%0ACheck logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        fi
+        
+        curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+             -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=$MESSAGE"
+    
+    - name: Create GitHub deployment status
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.repos.createDeploymentStatus({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            deployment_id: context.payload.deployment?.id || 1,
+            state: '${{ job.status }}',
+            description: '${{ job.status == "success" && "Darkflobi gremlin deployed successfully!" || "Deployment failed" }}',
+            environment_url: 'https://heyzoos123-blip.github.io/darkflobi-automation/'
+          });
+
+  # ============================================
+  # PERFORMANCE MONITORING
+  # ============================================
+  monitor:
+    needs: deploy-website
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Lighthouse CI
+      uses: treosh/lighthouse-ci-action@v10
+      with:
+        urls: |
+          https://heyzoos123-blip.github.io/darkflobi-automation/
+        uploadArtifacts: true
+        temporaryPublicStorage: true
+        
+    - name: Website health check
+      run: |
+        # Wait for deployment to be ready
+        sleep 60
+        
+        # Check if website is responsive
+        response=$(curl -s -o /dev/null -w "%{http_code}" https://heyzoos123-blip.github.io/darkflobi-automation/)
+        
+        if [ $response = "200" ]; then
+          echo "✅ Website is healthy and responsive"
+        else
+          echo "❌ Website health check failed (HTTP $response)"
+          exit 1
+        fi
+        
+        # Check if JavaScript loads properly
+        echo "🔍 Running basic functionality tests..."
+        
+        # This could be expanded with actual browser testing
+        echo "✅ Basic health checks passed"

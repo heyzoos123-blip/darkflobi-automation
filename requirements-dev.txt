@@ -1,0 +1,17 @@
+# Development dependencies for CI/CD
+# These are only needed for testing and development
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# Code quality  
+black>=23.0.0
+flake8>=6.0.0
+
+# Basic requirements
+requests>=2.31.0
+python-dotenv>=1.0.0
+
+# Optional AI dependencies
+anthropic>=0.8.0
